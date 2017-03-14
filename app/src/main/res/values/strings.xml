@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Give Me News</string>
+    <string name="nyt_api_key">b48be83c563847dc9a6508ebd34702de</string>
+</resources>
