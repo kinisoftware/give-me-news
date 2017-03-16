@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Give Me News</string>
     <string name="nyt_api_key">b48be83c563847dc9a6508ebd34702de</string>
+    <string name="search_button">Search</string>
+    <string name="search_text_placeholder">Search...</string>
 </resources>
