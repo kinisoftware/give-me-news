@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kinisoftware.givemenews.model.Article;
-import com.kinisoftware.givemenews.model.Multimedia;
+import com.kinisoftware.givemenews.model.SearchResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -29,10 +28,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         }
     }
 
-    private List<Article> articles;
+    private List<SearchResponse.Response.Article> articles;
     private Context context;
 
-    public ArticlesAdapter(List<Article> articles, Context context) {
+    public ArticlesAdapter(List<SearchResponse.Response.Article> articles, Context context) {
         this.articles = articles;
         this.context = context;
     }
@@ -40,23 +39,21 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-
         View view = inflater.inflate(R.layout.item_article, parent, false);
-
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Article article = articles.get(position);
+        SearchResponse.Response.Article article = articles.get(position);
 
         TextView tvHeadline = holder.tvHeadline;
-        tvHeadline.setText(article.getHeadline().getMain());
+        tvHeadline.setText(article.headline.main);
 
-        Multimedia thumbnail = article.getThumbnail();
+        SearchResponse.Response.Article.Multimedia thumbnail = article.getThumbnail();
         if (thumbnail != null) {
             Picasso.with(holder.itemView.getContext())
-                    .load(thumbnail.getUrl())
+                    .load(thumbnail.url)
                     .into(holder.ivThumbnail);
         }
     }

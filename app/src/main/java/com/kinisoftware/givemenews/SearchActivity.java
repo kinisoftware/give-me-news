@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 
-import com.kinisoftware.givemenews.model.Article;
 import com.kinisoftware.givemenews.model.SearchResponse;
 
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ public class SearchActivity extends AppCompatActivity {
     EditText etSearch;
     @BindView(R.id.gVNews)
     RecyclerView gvNews;
-    private List<Article> articles;
+    private List<SearchResponse.Response.Article> articles;
     private ArticlesAdapter articlesAdapter;
 
     @OnClick(R.id.btSearch)
@@ -43,7 +40,7 @@ public class SearchActivity extends AppCompatActivity {
         search.enqueue(new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, retrofit2.Response<SearchResponse> response) {
-                articles.addAll(response.body().getResponse().getDocs());
+                articles.addAll(response.body().response.docs);
                 articlesAdapter.notifyDataSetChanged();
             }
 
