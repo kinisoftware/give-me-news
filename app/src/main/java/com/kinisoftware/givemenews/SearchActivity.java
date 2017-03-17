@@ -2,8 +2,8 @@ package com.kinisoftware.givemenews;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.widget.EditText;
 
 import com.kinisoftware.givemenews.model.SearchResponse;
@@ -29,6 +29,9 @@ public class SearchActivity extends AppCompatActivity {
 
     @OnClick(R.id.btSearch)
     void search() {
+        articles.clear();
+        articlesAdapter.notifyDataSetChanged();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.nytimes.com/svc/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -60,6 +63,6 @@ public class SearchActivity extends AppCompatActivity {
         articles = new ArrayList<>();
         articlesAdapter = new ArticlesAdapter(articles, this);
         gvNews.setAdapter(articlesAdapter);
-        gvNews.setLayoutManager(new GridLayoutManager(this, 4));
+        gvNews.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
     }
 }

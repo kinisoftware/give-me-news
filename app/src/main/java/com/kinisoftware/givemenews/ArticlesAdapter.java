@@ -50,10 +50,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         TextView tvHeadline = holder.tvHeadline;
         tvHeadline.setText(article.headline.main);
 
-        SearchResponse.Response.Article.Multimedia thumbnail = article.getThumbnail();
+        String thumbnail = article.getThumbnail();
         if (thumbnail != null) {
             Picasso.with(holder.itemView.getContext())
-                    .load(thumbnail.url)
+                    .load(thumbnail)
                     .into(holder.ivThumbnail);
         }
     }

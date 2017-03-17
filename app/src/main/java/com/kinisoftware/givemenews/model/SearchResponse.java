@@ -21,15 +21,10 @@ public class SearchResponse {
             @SerializedName("multimedia")
             public List<Multimedia> multimedias;
 
-            public Multimedia getThumbnail() {
+            public String getThumbnail() {
                 if (multimedias != null) {
-                    for (Multimedia multimedia : multimedias) {
-                        if (multimedia.subtype.equals("thumbnail")) {
-                            Multimedia thumbnail = new Multimedia();
-                            thumbnail.url = "http://www.nytimes.com/" + multimedia.url;
-                            thumbnail.subtype = multimedia.subtype;
-                            return thumbnail;
-                        }
+                    if (!multimedias.isEmpty()) {
+                        return "http://www.nytimes.com/" + multimedias.get(0).url;
                     }
                 }
                 return null;
