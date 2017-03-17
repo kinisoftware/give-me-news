@@ -11,7 +11,7 @@ public class Multimedia {
     }
 
     public String getUrl() {
-        return url;
+        return "http://www.nytimes.com/" + url;
     }
 
     public String getSubtype() {

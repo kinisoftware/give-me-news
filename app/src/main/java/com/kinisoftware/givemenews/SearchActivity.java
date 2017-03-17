@@ -2,6 +2,8 @@ package com.kinisoftware.givemenews;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -24,7 +26,7 @@ public class SearchActivity extends AppCompatActivity {
     @BindView((R.id.etSearch))
     EditText etSearch;
     @BindView(R.id.gVNews)
-    GridView gvNews;
+    RecyclerView gvNews;
     private List<Article> articles;
     private ArticlesAdapter articlesAdapter;
 
@@ -59,7 +61,8 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         articles = new ArrayList<>();
-        articlesAdapter = new ArticlesAdapter(this, articles);
+        articlesAdapter = new ArticlesAdapter(articles, this);
         gvNews.setAdapter(articlesAdapter);
+        gvNews.setLayoutManager(new GridLayoutManager(this, 4));
     }
 }
