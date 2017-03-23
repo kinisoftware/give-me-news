@@ -1,6 +1,7 @@
 package com.kinisoftware.givemenews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        SearchResponse.Response.Article article = articles.get(position);
+        final SearchResponse.Response.Article article = articles.get(position);
 
         TextView tvHeadline = holder.tvHeadline;
         tvHeadline.setText(article.headline.main);
@@ -56,6 +57,15 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                     .load(thumbnail)
                     .into(holder.ivThumbnail);
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ArticleActivity.class);
+                intent.putExtra("article", article);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

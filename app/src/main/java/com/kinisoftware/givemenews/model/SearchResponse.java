@@ -2,6 +2,7 @@ package com.kinisoftware.givemenews.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class SearchResponse {
@@ -12,7 +13,7 @@ public class SearchResponse {
 
         public List<Article> docs;
 
-        public static class Article {
+        public static class Article implements Serializable {
             @SerializedName("web_url")
             public String webUrl;
 
@@ -30,11 +31,11 @@ public class SearchResponse {
                 return null;
             }
 
-            public static class Headline {
+            public static class Headline implements Serializable {
                 public String main;
             }
 
-            public static class Multimedia {
+            public static class Multimedia implements Serializable {
                 public String url;
                 public String subtype;
             }
