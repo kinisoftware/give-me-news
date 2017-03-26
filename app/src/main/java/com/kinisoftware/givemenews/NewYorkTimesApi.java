@@ -9,5 +9,17 @@ import retrofit2.http.Query;
 public interface NewYorkTimesApi {
 
     @GET("search/v2/articlesearch.json")
-    Call<SearchResponse> search(@Query("api-key") String apiKey, @Query("page") int page, @Query("q") String query);
+    Call<SearchResponse> search(
+            @Query("api-key") String apiKey,
+            @Query("page") int page,
+            @Query("q") String query);
+
+    @GET("search/v2/articlesearch.json")
+    Call<SearchResponse> search(
+            @Query("api-key") String apiKey,
+            @Query("page") int page,
+            @Query("q") String query,
+            @Query("begin_date") String beginDate,
+            @Query("sort") String sort,
+            @Query("fq") String newsDesk);
 }

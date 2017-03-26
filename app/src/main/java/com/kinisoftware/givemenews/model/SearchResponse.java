@@ -7,6 +7,7 @@ import java.util.List;
 
 public class SearchResponse {
 
+    public String status;
     public Response response;
 
     public static class Response {

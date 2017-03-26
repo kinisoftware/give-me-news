@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kinisoftware.givemenews.FilterActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="70dp"
+        android:text="Begin Date" />
+
+    <EditText
+        android:id="@+id/etBeginDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="55dp"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:ems="10"
+        android:inputType="date" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etBeginDate"
+        android:layout_marginTop="97dp"
+        android:layout_toLeftOf="@+id/etBeginDate"
+        android:layout_toStartOf="@+id/etBeginDate"
+        android:text="Sort Order" />
+
+    <Spinner
+        android:id="@+id/spSortOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/etBeginDate"
+        android:layout_alignLeft="@+id/etBeginDate"
+        android:layout_alignRight="@+id/etBeginDate"
+        android:layout_alignStart="@+id/etBeginDate"
+        android:layout_alignTop="@+id/textView2"
+        android:entries="@array/sort_array" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/spSortOrder"
+        android:layout_marginTop="129dp"
+        android:text="News Desk" />
+
+    <Button
+        android:id="@+id/btSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:text="Save" />
+
+    <CheckBox
+        android:id="@+id/cbArts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cbSports"
+        android:layout_alignStart="@+id/cbSports"
+        android:layout_alignTop="@+id/textView3"
+        android:text="Arts" />
+
+    <CheckBox
+        android:id="@+id/cbSports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignLeft="@+id/spSortOrder"
+        android:layout_alignStart="@+id/spSortOrder"
+        android:layout_marginBottom="20dp"
+        android:text="Sports" />
+
+    <CheckBox
+        android:id="@+id/cbStyleFashion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cbArts"
+        android:layout_alignStart="@+id/cbArts"
+        android:layout_below="@+id/cbArts"
+        android:text="Style / Fashion" />
+</RelativeLayout>
