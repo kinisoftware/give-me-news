@@ -36,11 +36,13 @@ public class SearchActivity extends AppCompatActivity {
     private List<SearchResponse.Response.Article> articles;
     private ArticlesAdapter articlesAdapter;
     private SearchFilters filters;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     @OnClick(R.id.btSearch)
     void search() {
         articles.clear();
         articlesAdapter.notifyDataSetChanged();
+        scrollListener.resetState();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://api.nytimes.com/svc/")
@@ -104,7 +106,58 @@ public class SearchActivity extends AppCompatActivity {
         articles = new ArrayList<>();
         articlesAdapter = new ArticlesAdapter(articles, this);
         gvNews.setAdapter(articlesAdapter);
-        gvNews.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+        gvNews.setLayoutManager(layoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadNextDataFromApi(page);
+            }
+        };
+        gvNews.addOnScrollListener(scrollListener);
+    }
+
+    public void loadNextDataFromApi(int offset) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.nytimes.com/svc/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        NewYorkTimesApi nytApi = retrofit.create(NewYorkTimesApi.class);
+
+        Call<SearchResponse> search;
+        if (filters.shouldFilter()) {
+            Logger.getAnonymousLogger().info("Search with filters");
+            search = nytApi.search(
+                    getString(R.string.nyt_api_key),
+                    0,
+                    etSearch.getText().toString(),
+                    filters.getBeginDate(),
+                    filters.getSortOrder(),
+                    filters.getDeskValues());
+        } else {
+            Logger.getAnonymousLogger().info("Search without filters");
+            search = nytApi.search(getString(R.string.nyt_api_key), offset, etSearch.getText().toString());
+        }
+
+        search.enqueue(new Callback<SearchResponse>() {
+            @Override
+            public void onResponse(Call<SearchResponse> call, retrofit2.Response<SearchResponse> response) {
+                SearchResponse searchResponse = response.body();
+                if (searchResponse != null && searchResponse.status.equals("OK")) {
+                    articles.addAll(searchResponse.response.docs);
+                    articlesAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getApplicationContext(), "No results", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
